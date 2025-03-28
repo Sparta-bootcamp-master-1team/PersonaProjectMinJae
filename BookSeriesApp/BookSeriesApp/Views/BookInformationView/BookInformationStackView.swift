@@ -6,7 +6,6 @@ final class BookInformationStackView: UIStackView {
     private let bookImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-//        imageView.image = UIImage(named: "harrypotter1")
         return imageView
     }()
     

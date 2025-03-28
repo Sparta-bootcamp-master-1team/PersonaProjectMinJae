@@ -86,10 +86,6 @@ final class BookAttributeStackView: UIStackView {
     
     private func addViews() {
         addArrangedSubview(titleLabel)
-//        contentIndex.forEach { type in
-//            let stackView = makeAttributeContentView(attribute: type.rawValue)
-//            addArrangedSubview(stackView)
-//        }
     }
     func bind(model: BookAttribute) {
         contentIndex.forEach { type in
