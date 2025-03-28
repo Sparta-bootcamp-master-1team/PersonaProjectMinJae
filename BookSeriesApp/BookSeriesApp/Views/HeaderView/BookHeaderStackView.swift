@@ -1,5 +1,4 @@
 import UIKit
-import SnapKit
 
 class BookHeaderStackView: UIStackView {
     
@@ -9,11 +8,10 @@ class BookHeaderStackView: UIStackView {
         label.textColor = .label
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = "Harry Potter and the Philosopher's Stone"
         return label
     }()
     
-    var buttonStackView: UIStackView
+    var buttonStackView: BookHeaderButtonStackView
     
     override init(frame: CGRect) {
         self.buttonStackView = BookHeaderButtonStackView()
@@ -46,4 +44,8 @@ class BookHeaderStackView: UIStackView {
         self.addArrangedSubview(buttonStackView)
     }
     
+    func bind(model: [BookAttribute]) {
+        headerLabel.text = model.first?.title
+        buttonStackView.bind(model: model)
+    }
 }
