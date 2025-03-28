@@ -6,11 +6,11 @@ final class BookInformationStackView: UIStackView {
     private let bookImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-        imageView.image = UIImage(named: "harrypotter1")
+//        imageView.image = UIImage(named: "harrypotter1")
         return imageView
     }()
     
-    private var bookAttributeStackView: UIStackView
+    private var bookAttributeStackView: BookAttributeStackView
     
     override init(frame: CGRect) {
         bookAttributeStackView = BookAttributeStackView()
@@ -41,5 +41,10 @@ final class BookInformationStackView: UIStackView {
             make.width.equalTo(100)
             make.height.equalTo(150)
         }
+    }
+    
+    func bind(model: BookAttribute, index: Int) {
+        bookImageView.image = UIImage(named: "harrypotter\(index)")
+        bookAttributeStackView.bind(model: model)
     }
 }

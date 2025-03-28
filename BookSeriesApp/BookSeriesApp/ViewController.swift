@@ -27,6 +27,7 @@ final class ViewController: UIViewController {
         addViews()
         configureLayout()
         bookHeaderStackView.bind(model: viewModel.items)
+        bookInformationStackView.bind(model: viewModel.items[0], index: 1)
     }
     private func addViews() {
         view.addSubview(bookHeaderStackView)

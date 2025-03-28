@@ -9,36 +9,36 @@ final class BookAttributeStackView: UIStackView {
         case released
         case pages
         
-        func configuration() -> [(title: String, font: UIFont, textColor: UIColor)] {
+        func configuration(model: BookAttribute) -> [(title: String, font: UIFont, textColor: UIColor)] {
             switch self {
             case .author:
                 return [("Author",
                          UIFont.systemFont(ofSize: 16, weight: .bold),
                          UIColor.black),
-                        ("J. K. Rowling",
+                        (model.author,
                          UIFont.systemFont(ofSize: 18, weight: .regular),
                          UIColor.darkGray)]
             case .released:
                 return [("Released",
                          UIFont.systemFont(ofSize: 14, weight: .bold),
                          UIColor.black),
-                        ("June 26, 1997",
+                        (model.releaseDate,
                          UIFont.systemFont(ofSize: 14, weight: .regular),
                          UIColor.gray)]
             case .pages:
                 return [("Pages",
                          UIFont.systemFont(ofSize: 14, weight: .bold),
                          UIColor.black),
-                        ("223",
+                        ("\(model.pages)",
                          UIFont.systemFont(ofSize: 14, weight: .regular),
                          UIColor.gray)]
             }
         }
     }
     
-    private func makeAttributeContentView(attribute: String) -> UIStackView {
+    private func makeAttributeContentView(attribute: String, model: BookAttribute) -> UIStackView {
         let type = AttributeContentType(rawValue: attribute)
-        let configuration = type?.configuration()
+        let configuration = type?.configuration(model: model)
         
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -86,8 +86,14 @@ final class BookAttributeStackView: UIStackView {
     
     private func addViews() {
         addArrangedSubview(titleLabel)
+//        contentIndex.forEach { type in
+//            let stackView = makeAttributeContentView(attribute: type.rawValue)
+//            addArrangedSubview(stackView)
+//        }
+    }
+    func bind(model: BookAttribute) {
         contentIndex.forEach { type in
-            let stackView = makeAttributeContentView(attribute: type.rawValue)
+            let stackView = makeAttributeContentView(attribute: type.rawValue, model: model)
             addArrangedSubview(stackView)
         }
     }
