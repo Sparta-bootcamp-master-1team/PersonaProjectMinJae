@@ -4,22 +4,20 @@ import SnapKit
 final class ViewController: UIViewController {
     
     private var viewModel: ViewModel
-    private var bookHeaderStackView: UIStackView
-    private var bookInformationStackView: UIStackView
+    private var bookHeaderStackView: BookHeaderStackView
+    private var bookInformationStackView: BookInformationStackView
     
-    init(viewModel: ViewModel = ViewModel(dataService: DataService()),
-         bookHeaderStackView: UIStackView = BookHeaderStackView(),
-         bookInformationStackView: UIStackView = BookInformationStackView()) {
-        self.viewModel = viewModel
-        self.bookHeaderStackView = bookHeaderStackView
-        self.bookInformationStackView = bookInformationStackView
+    init() {
+        self.viewModel = ViewModel()
+        self.bookHeaderStackView = BookHeaderStackView()
+        self.bookInformationStackView = BookInformationStackView()
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         self.bookHeaderStackView = BookHeaderStackView()
         self.bookInformationStackView = BookInformationStackView()
-        self.viewModel = ViewModel(dataService: DataService())
+        self.viewModel = ViewModel()
         super.init(coder: coder)
     }
     
@@ -28,7 +26,7 @@ final class ViewController: UIViewController {
         view.backgroundColor = .white
         addViews()
         configureLayout()
-        
+        bookHeaderStackView.bind(model: viewModel.items)
     }
     private func addViews() {
         view.addSubview(bookHeaderStackView)
@@ -50,4 +48,3 @@ final class ViewController: UIViewController {
     }
     
 }
-

@@ -3,10 +3,10 @@ import Foundation
 final class ViewModel {
     
     private var dataService: DataService
-    private var items: [BookAttribute] = []
+    var items: [BookAttribute] = []
     
-    init(dataService: DataService) {
-        self.dataService = dataService
+    init() {
+        self.dataService = DataService()
         fetchData()
     }
     
