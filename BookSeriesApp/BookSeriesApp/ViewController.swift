@@ -46,7 +46,6 @@ final class ViewController: UIViewController {
             make.top.equalTo(bookHeaderStackView.snp.bottom).offset(10)
             make.leading.equalTo(self.view.safeAreaLayoutGuide.snp.leading).inset(5)
             make.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).inset(5)
-            make.height.equalTo(200)
         }
     }
     
