@@ -49,7 +49,7 @@ class BookDescriptionScrollView: UIScrollView {
         }
         bookChaptersStackView.snp.makeConstraints { [weak self] in
             guard let self else { return }
-            $0.top.equalTo(self.bookDescriptionStackView.snp.bottom).offset(24)
+            $0.top.equalTo(self.bookDescriptionStackView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.width.equalToSuperview()
         }
