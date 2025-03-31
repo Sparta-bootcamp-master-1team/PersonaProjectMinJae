@@ -3,8 +3,16 @@ import SnapKit
 
 class BookSummaryStackView: UIStackView {
     
-    private var overViewed: Bool = false
     private var summaryText: String = ""
+    private var overViewed: Bool = UserDefaults.standard.bool(forKey: "overViewed") {
+        didSet {
+            if overViewed {
+                overViewButton.setTitle("접기", for: .normal)
+            } else {
+                overViewButton.setTitle("더보기", for: .normal)
+            }
+        }
+    }
     
     private let summaryLabel: UILabel = {
         let label = UILabel()
@@ -30,7 +38,6 @@ class BookSummaryStackView: UIStackView {
     
     private lazy var overViewButton: UIButton = {
         let button = UIButton()
-        button.setTitle("더보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         button.addTarget(self, action: #selector(overViewButtonTapped), for: .touchUpInside)
@@ -53,8 +60,8 @@ class BookSummaryStackView: UIStackView {
     }
     
     @objc func overViewButtonTapped() {
-        print("overViewButtonTapped")
         overViewed.toggle()
+        UserDefaults.standard.set(overViewed, forKey: "overViewed")
         self.summaryTextLabel.text = convertSummaryText(summaryText)
     }
     
@@ -79,6 +86,15 @@ class BookSummaryStackView: UIStackView {
         guard let text = model.summary else { return }
         summaryText = text
         summaryTextLabel.text = convertSummaryText(summaryText)
+        if text.count < 450 {
+            overViewButton.isHidden = true
+        } else {
+            if overViewed {
+                overViewButton.setTitle("접기", for: .normal)
+            } else {
+                overViewButton.setTitle("더보기", for: .normal)
+            }
+        }
     }
     
     private func convertSummaryText(_ text: String) -> String {
