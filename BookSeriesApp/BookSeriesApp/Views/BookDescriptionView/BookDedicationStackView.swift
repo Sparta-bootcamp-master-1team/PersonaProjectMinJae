@@ -1,11 +1,13 @@
 import UIKit
 
-class BookDescriptionView: UIStackView {
+class BookDedicationStackView: UIStackView {
     
     private let dedicationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        label.text = "Dedication"
         return label
     }()
     
@@ -14,30 +16,22 @@ class BookDescriptionView: UIStackView {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .darkGray
-        return label
-    }()
-    
-    private let summaryLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 18, weight: .bold)
-        return label
-    }()
-    
-    private let summaryTextLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .darkGray
+        label.text = "For Jessica, who loves stories, for Anne, who loved them too, and for Di, who heard this one first"
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        axis = .vertical
+        spacing = 8
+        distribution = .fill
+        layoutMargins = .init(top: 24, left: 20, bottom: 0, right: 20)
+        isLayoutMarginsRelativeArrangement = true
+        addArrangedSubview(dedicationLabel)
+        addArrangedSubview(dedicationTextLabel)
     }
     
     required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
-    
 }
