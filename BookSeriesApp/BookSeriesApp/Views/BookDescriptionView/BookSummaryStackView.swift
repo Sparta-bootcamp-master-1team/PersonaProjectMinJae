@@ -3,6 +3,9 @@ import SnapKit
 
 class BookSummaryStackView: UIStackView {
     
+    private var overViewed: Bool = false
+    private var summaryText: String = ""
+    
     private let summaryLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -25,11 +28,12 @@ class BookSummaryStackView: UIStackView {
         return view
     }()
     
-    private let overViewButton: UIButton = {
+    private lazy var overViewButton: UIButton = {
         let button = UIButton()
         button.setTitle("더보기", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        button.addTarget(self, action: #selector(overViewButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -48,24 +52,48 @@ class BookSummaryStackView: UIStackView {
         super.init(coder: coder)
     }
     
+    @objc func overViewButtonTapped() {
+        print("overViewButtonTapped")
+        overViewed.toggle()
+        self.summaryTextLabel.text = convertSummaryText(summaryText)
+    }
+    
     private func addViews() {
-        overViewContentView.addSubview(overViewButton)
         addArrangedSubview(summaryLabel)
         addArrangedSubview(summaryTextLabel)
         addArrangedSubview(overViewContentView)
+        overViewContentView.addSubview(overViewButton)
     }
     
     private func configureLayout() {
         overViewContentView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(30)
         }
-        overViewButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
+        overViewButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview()
         }
+        
     }
     
     func bind(model: BookAttribute) {
-        summaryTextLabel.text = model.summary
+        guard let text = model.summary else { return }
+        summaryText = text
+        summaryTextLabel.text = convertSummaryText(summaryText)
+    }
+    
+    private func convertSummaryText(_ text: String) -> String {
+        var convertedText: String = ""
+        
+        if overViewed {
+            convertedText = text
+        } else {
+            if text.count >= 450 {
+                convertedText = text.prefix(450).appending("...")
+            } else {
+                convertedText = text
+            }
+        }
+        return convertedText
     }
     
 }
