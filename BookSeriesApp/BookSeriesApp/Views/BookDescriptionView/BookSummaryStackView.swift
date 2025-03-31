@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 class BookSummaryStackView: UIStackView {
     
@@ -16,8 +17,20 @@ class BookSummaryStackView: UIStackView {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .darkGray
-        label.text = "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!"
         return label
+    }()
+    
+    private lazy var overViewContentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private let overViewButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("더보기", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -27,12 +40,32 @@ class BookSummaryStackView: UIStackView {
         distribution = .fill
         layoutMargins = .init(top: 24, left: 0, bottom: 0, right: 0)
         isLayoutMarginsRelativeArrangement = true
-        addArrangedSubview(summaryLabel)
-        addArrangedSubview(summaryTextLabel)
+        addViews()
+        configureLayout()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    private func addViews() {
+        overViewContentView.addSubview(overViewButton)
+        addArrangedSubview(summaryLabel)
+        addArrangedSubview(summaryTextLabel)
+        addArrangedSubview(overViewContentView)
+    }
+    
+    private func configureLayout() {
+        overViewContentView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+        }
+        overViewButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+        }
+    }
+    
+    func bind(model: BookAttribute) {
+        summaryTextLabel.text = model.summary
     }
     
 }

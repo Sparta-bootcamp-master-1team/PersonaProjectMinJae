@@ -18,4 +18,9 @@ class BookDescriptionStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func bind(model: BookAttribute) {
+        bookSummaryStackView.bind(model: model)
+        bookDedicationStackView.bind(model: model)
+    }
+    
 }

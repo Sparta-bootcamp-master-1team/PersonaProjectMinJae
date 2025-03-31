@@ -16,7 +16,6 @@ class BookDedicationStackView: UIStackView {
         label.numberOfLines = 0
         label.font = .systemFont(ofSize: 14, weight: .regular)
         label.textColor = .darkGray
-        label.text = "For Jessica, who loves stories, for Anne, who loved them too, and for Di, who heard this one first"
         return label
     }()
     
@@ -33,5 +32,9 @@ class BookDedicationStackView: UIStackView {
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func bind(model: BookAttribute) {
+        dedicationTextLabel.text = model.dedication
     }
 }
