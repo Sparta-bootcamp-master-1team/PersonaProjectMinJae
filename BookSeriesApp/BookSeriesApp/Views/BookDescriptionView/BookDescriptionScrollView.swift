@@ -25,10 +25,10 @@ class BookDescriptionScrollView: UIScrollView {
     }
     
     private func addViews() {
-        self.addSubview(contentView)
         contentView.addSubview(bookDescriptionStackView)
         contentView.addSubview(bookInformationStackView)
         contentView.addSubview(bookChaptersStackView)
+        self.addSubview(contentView)
     }
     
     private func configureLayout() {
@@ -53,10 +53,12 @@ class BookDescriptionScrollView: UIScrollView {
             $0.leading.trailing.equalToSuperview()
             $0.width.equalToSuperview()
         }
+        
     }
     
     func bind(model: BookAttribute, index: Int) {
         bookInformationStackView.bind(model: model, index: index)
         bookChaptersStackView.bind(model: model)
+        bookDescriptionStackView.bind(model: model)
     }
 }
