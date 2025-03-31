@@ -25,7 +25,7 @@ class BookDedicationStackView: UIStackView {
         axis = .vertical
         spacing = 8
         distribution = .fill
-        layoutMargins = .init(top: 24, left: 20, bottom: 0, right: 20)
+        layoutMargins = .init(top: 24, left: 0, bottom: 0, right: 0)
         isLayoutMarginsRelativeArrangement = true
         addArrangedSubview(dedicationLabel)
         addArrangedSubview(dedicationTextLabel)
