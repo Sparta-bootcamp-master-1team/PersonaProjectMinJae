@@ -42,8 +42,10 @@ final class ViewController: UIViewController {
         }
         bookDescriptionScrollView.snp.makeConstraints { [weak self] in
             guard let self else { return }
-            $0.top.equalTo(self.bookHeaderStackView.snp.bottom)
-            $0.width.bottom.equalToSuperview()
+            $0.top.equalTo(self.bookHeaderStackView.snp.bottom).offset(24)
+            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
         }
     }
     

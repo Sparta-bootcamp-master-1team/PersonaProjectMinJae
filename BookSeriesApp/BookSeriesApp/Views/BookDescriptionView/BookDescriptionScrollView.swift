@@ -5,13 +5,14 @@ class BookDescriptionScrollView: UIScrollView {
     private let bookDescriptionStackView: BookDescriptionStackView
     private var bookInformationStackView: BookInformationStackView
     private let bookChaptersStackView: BookChaptersStackView
+    private let contentView = UIView()
     
     override init(frame: CGRect) {
         self.bookDescriptionStackView = BookDescriptionStackView()
         self.bookInformationStackView = BookInformationStackView()
         self.bookChaptersStackView = BookChaptersStackView()
         super.init(frame: frame)
-        backgroundColor = .cyan
+        showsVerticalScrollIndicator = false
         addViews()
         configureLayout()
     }
@@ -24,12 +25,18 @@ class BookDescriptionScrollView: UIScrollView {
     }
     
     private func addViews() {
-        self.addSubview(bookDescriptionStackView)
-        self.addSubview(bookInformationStackView)
-        self.addSubview(bookChaptersStackView)
+        self.addSubview(contentView)
+        contentView.addSubview(bookDescriptionStackView)
+        contentView.addSubview(bookInformationStackView)
+        contentView.addSubview(bookChaptersStackView)
     }
     
     private func configureLayout() {
+        contentView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(1000).priority(.low)
+        }
         bookInformationStackView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview()
             $0.width.equalToSuperview()
@@ -38,11 +45,13 @@ class BookDescriptionScrollView: UIScrollView {
             guard let self else { return }
             $0.top.equalTo(self.bookInformationStackView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
+            $0.width.equalToSuperview()
         }
         bookChaptersStackView.snp.makeConstraints { [weak self] in
             guard let self else { return }
             $0.top.equalTo(self.bookDescriptionStackView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
+            $0.width.equalToSuperview()
         }
     }
     
