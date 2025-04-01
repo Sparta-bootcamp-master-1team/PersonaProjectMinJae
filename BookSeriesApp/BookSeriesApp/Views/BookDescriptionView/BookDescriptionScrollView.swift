@@ -35,7 +35,6 @@ class BookDescriptionScrollView: UIScrollView {
         contentView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(1000).priority(.low)
         }
         bookInformationStackView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview()
