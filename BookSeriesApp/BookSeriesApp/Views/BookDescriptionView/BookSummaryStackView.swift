@@ -4,7 +4,13 @@ import SnapKit
 class BookSummaryStackView: UIStackView {
     
     private var summaryText: String = ""
-    private var overViewed: Bool = UserDefaults.standard.bool(forKey: "overViewed") {
+    private var currentIndex: Int = 0
+    private var overViewedArray: [Bool] = (UserDefaults.standard.array(forKey: "overViewedArray") as? [Bool]) ?? Array(repeating: false, count: 7) {
+        didSet {
+            UserDefaults.standard.set(overViewedArray, forKey: "overViewedArray")
+        }
+    }
+    private var overViewed: Bool = false {
         didSet {
             if overViewed {
                 overViewButton.setTitle("접기", for: .normal)
@@ -59,11 +65,6 @@ class BookSummaryStackView: UIStackView {
         super.init(coder: coder)
     }
     
-    @objc func overViewButtonTapped() {
-        overViewed.toggle()
-        UserDefaults.standard.set(overViewed, forKey: "overViewed")
-        self.summaryTextLabel.text = convertSummaryText(summaryText)
-    }
     
     private func addViews() {
         addArrangedSubview(summaryLabel)
@@ -82,19 +83,30 @@ class BookSummaryStackView: UIStackView {
         
     }
     
-    func bind(model: BookAttribute) {
+    func bind(model: BookAttribute, index: Int) {
         guard let text = model.summary else { return }
         summaryText = text
+        currentIndex = index
+        overViewed = overViewedArray[currentIndex]
         summaryTextLabel.text = convertSummaryText(summaryText)
+        
         if text.count < 450 {
             overViewButton.isHidden = true
         } else {
+            overViewButton.isHidden = false
             if overViewed {
                 overViewButton.setTitle("접기", for: .normal)
             } else {
                 overViewButton.setTitle("더보기", for: .normal)
             }
         }
+    }
+    
+    @objc func overViewButtonTapped() {
+        overViewed.toggle()
+        overViewedArray[currentIndex] = overViewed
+        UserDefaults.standard.set(overViewedArray, forKey: "overViewedArray")
+        self.summaryTextLabel.text = convertSummaryText(summaryText)
     }
     
     private func convertSummaryText(_ text: String) -> String {

@@ -66,7 +66,6 @@ final class BookAttributeStackView: UIStackView {
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .black
         label.numberOfLines = 0
-        label.text = "Harry Potter and the Philosopher's Stone"
         label.setContentHuggingPriority(.required, for: .vertical)
         return label
     }()
@@ -77,17 +76,16 @@ final class BookAttributeStackView: UIStackView {
         distribution = .fillProportionally
         alignment = .top
         spacing = 10
-        addViews()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func addViews() {
-        addArrangedSubview(titleLabel)
-    }
     func bind(model: BookAttribute) {
+        self.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        titleLabel.text = model.title
+        addArrangedSubview(titleLabel)
         contentIndex.forEach { type in
             let stackView = makeAttributeContentView(attribute: type.rawValue, model: model)
             addArrangedSubview(stackView)

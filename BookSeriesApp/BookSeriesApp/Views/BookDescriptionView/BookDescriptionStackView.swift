@@ -15,11 +15,11 @@ class BookDescriptionStackView: UIStackView {
     }
     
     required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
-    func bind(model: BookAttribute) {
-        bookSummaryStackView.bind(model: model)
+    func bind(model: BookAttribute, index: Int) {
+        bookSummaryStackView.bind(model: model, index: index)
         bookDedicationStackView.bind(model: model)
     }
     

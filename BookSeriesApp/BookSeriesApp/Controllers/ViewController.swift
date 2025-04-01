@@ -24,10 +24,10 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        bookHeaderStackView.buttonStackView.delegate = self
         addViews()
         configureLayout()
-        bookHeaderStackView.bind(model: viewModel.items)
-        bookDescriptionScrollView.bind(model: viewModel.items[0], index: 1)
+        bind(index: viewModel.currentSeriesIndex)
     }
     private func addViews() {
         view.addSubview(bookHeaderStackView)
@@ -49,4 +49,22 @@ final class ViewController: UIViewController {
         }
     }
     
+    private func bind(index: Int) {
+        bookHeaderStackView.bind(model: viewModel.items[viewModel.currentSeriesIndex],
+                                 count: viewModel.items.count)
+        bookDescriptionScrollView.bind(model: viewModel.items[viewModel.currentSeriesIndex],
+                                       index: viewModel.currentSeriesIndex)
+    }
+    
+}
+
+extension ViewController: BookHeaderButtonStackViewDelegate {
+    func buttonTapped(at index: Int) {
+        viewModel.currentSeriesIndex = index
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.bind(index: viewModel.currentSeriesIndex)
+        }
+        
+    }
 }

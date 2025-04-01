@@ -17,8 +17,6 @@ class BookChaptersStackView: UIStackView {
         spacing = 8
         layoutMargins = .init(top: 24, left: 0, bottom: 0, right: 0)
         isLayoutMarginsRelativeArrangement = true
-        
-        addArrangedSubview(chapterLabel)
     }
     
     required init(coder: NSCoder) {
@@ -26,8 +24,9 @@ class BookChaptersStackView: UIStackView {
     }
     
     func bind(model: BookAttribute) {
+        self.arrangedSubviews.forEach { $0.removeFromSuperview() }
         let chapters = model.chapters
-        
+        addArrangedSubview(chapterLabel)
         chapters?.forEach{ [weak self] in
             guard let self else { return }
             self.addChapterSubViews(model: $0)

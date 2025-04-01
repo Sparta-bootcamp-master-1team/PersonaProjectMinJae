@@ -4,7 +4,7 @@ final class ViewModel {
     
     private var dataService: DataService
     var items: [BookAttribute] = []
-    
+    var currentSeriesIndex: Int = 0
     init() {
         self.dataService = DataService()
         fetchData()

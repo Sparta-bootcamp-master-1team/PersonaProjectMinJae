@@ -43,7 +43,7 @@ final class BookInformationStackView: UIStackView {
     }
     
     func bind(model: BookAttribute, index: Int) {
-        bookImageView.image = UIImage(named: "harrypotter\(index)")
+        bookImageView.image = UIImage(named: "harrypotter\(index+1)")
         bookAttributeStackView.bind(model: model)
     }
 }
