@@ -78,7 +78,7 @@ class BookSummaryStackView: UIStackView {
             $0.height.equalTo(30)
         }
         overViewButton.snp.makeConstraints {
-            $0.bottom.top.trailing.equalToSuperview()
+            $0.top.trailing.equalToSuperview()
         }
         
     }
