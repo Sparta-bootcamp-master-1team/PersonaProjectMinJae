@@ -9,6 +9,14 @@ final class BookAttributeStackView: UIStackView {
         case released
         case pages
         
+        private func convertDateString(_ dateString: String) -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard let date = dateFormatter.date(from: dateString) else { return "" }
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            return dateFormatter.string(from: date)
+        }
+        
         func configuration(model: BookAttribute) -> [(title: String, font: UIFont, textColor: UIColor)] {
             switch self {
             case .author:
@@ -22,7 +30,7 @@ final class BookAttributeStackView: UIStackView {
                 return [("Released",
                          UIFont.systemFont(ofSize: 14, weight: .bold),
                          UIColor.black),
-                        (model.releaseDate,
+                        (convertDateString(model.releaseDate),
                          UIFont.systemFont(ofSize: 14, weight: .regular),
                          UIColor.gray)]
             case .pages:
