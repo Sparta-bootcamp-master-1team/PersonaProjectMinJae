@@ -1,10 +1,21 @@
 import UIKit
 
-class BookHeaderButtonStackView: UIStackView {
+protocol BookHeaderButtonStackViewDelegate: AnyObject {
+    func buttonTapped(at index: Int)
+}
+
+final class BookHeaderButtonStackView: UIStackView {
     
-    var buttons: [UIButton] = []
-    var lastButtonIndex: Int = 0
-    var currentButtonSelectedIndex: Int = 0
+    private var buttons: [UIButton] = []
+    private var lastButtonIndex: Int = 0
+    private var currentButtonSelectedIndex: Int = 0
+    private var totalCount: Int = 0 {
+        didSet {
+            if totalCount == oldValue { return }
+            addArrangedSubviews(count: totalCount)
+        }
+    }
+    weak var delegate: BookHeaderButtonStackViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -13,6 +24,7 @@ class BookHeaderButtonStackView: UIStackView {
     
     convenience init(seriesCount: Int) {
         self.init(frame: .zero)
+        totalCount = seriesCount
     }
     
     required init(coder: NSCoder) {
@@ -54,8 +66,7 @@ class BookHeaderButtonStackView: UIStackView {
     
     @objc func buttonTapped(_ sender: UIButton) {
         guard let buttonIndex = Int(sender.titleLabel?.text ?? "0") else { return }
-        print(buttonIndex)
-        print("tapp")
+        delegate?.buttonTapped(at: buttonIndex-1)
         setButtonState(at: buttonIndex-1)
     }
     
@@ -70,6 +81,7 @@ class BookHeaderButtonStackView: UIStackView {
     }
     
     func bind(count: Int) {
-        addArrangedSubviews(count: count)
+        totalCount = count
     }
+        
 }

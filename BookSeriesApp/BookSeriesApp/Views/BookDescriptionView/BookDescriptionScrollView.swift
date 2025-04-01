@@ -59,6 +59,6 @@ class BookDescriptionScrollView: UIScrollView {
     func bind(model: BookAttribute, index: Int) {
         bookInformationStackView.bind(model: model, index: index)
         bookChaptersStackView.bind(model: model)
-        bookDescriptionStackView.bind(model: model)
+        bookDescriptionStackView.bind(model: model, index: index)
     }
 }

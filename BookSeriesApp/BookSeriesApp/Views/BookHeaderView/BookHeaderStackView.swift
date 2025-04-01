@@ -20,11 +20,6 @@ class BookHeaderStackView: UIStackView {
         addArrangedSubviews()
     }
     
-    convenience init(title: String) {
-        self.init(frame: .zero)
-        headerLabel.text = title
-    }
-    
     required init(coder: NSCoder) {
         self.buttonStackView = BookHeaderButtonStackView()
         super.init(coder: coder)
@@ -44,8 +39,8 @@ class BookHeaderStackView: UIStackView {
         self.addArrangedSubview(buttonStackView)
     }
     
-    func bind(model: [BookAttribute]) {
-        headerLabel.text = model.first?.title
-        buttonStackView.bind(model: model)
+    func bind(model: BookAttribute, count: Int) {
+        headerLabel.text = model.title
+        buttonStackView.bind(count: count)
     }
 }
