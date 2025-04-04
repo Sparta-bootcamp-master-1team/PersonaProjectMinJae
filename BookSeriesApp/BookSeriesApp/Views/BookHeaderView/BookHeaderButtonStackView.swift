@@ -55,9 +55,8 @@ final class BookHeaderButtonStackView: UIStackView {
             buttons.append(button)
         }
         
-        buttons[0].isSelected.toggle()
         buttons[0].backgroundColor = .systemBlue
-        
+        buttons[0].setTitleColor(UIColor.white, for: .normal)
         buttons.forEach{ [weak self] in
             guard let self else { return }
             self.addArrangedSubview($0)
@@ -73,9 +72,9 @@ final class BookHeaderButtonStackView: UIStackView {
     private func setButtonState(at current: Int) {
         if lastButtonIndex == current { return }
         
-        buttons[lastButtonIndex].isSelected.toggle()
+        buttons[lastButtonIndex].setTitleColor(UIColor.systemBlue, for: .normal)
         buttons[lastButtonIndex].backgroundColor = .systemGray5
-        buttons[current].isSelected.toggle()
+        buttons[current].setTitleColor(UIColor.white, for: .normal)
         buttons[current].backgroundColor = .systemBlue
         lastButtonIndex = current
     }
