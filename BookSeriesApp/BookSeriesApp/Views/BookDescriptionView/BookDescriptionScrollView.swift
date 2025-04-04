@@ -1,6 +1,6 @@
 import UIKit
 
-class BookDescriptionScrollView: UIScrollView {
+final class BookDescriptionScrollView: UIScrollView {
     
     private let bookDescriptionStackView: BookDescriptionStackView
     private let bookInformationStackView: BookInformationStackView

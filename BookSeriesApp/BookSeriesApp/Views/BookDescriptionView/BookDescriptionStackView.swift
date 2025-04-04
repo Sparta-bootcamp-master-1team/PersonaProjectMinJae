@@ -1,6 +1,6 @@
 import UIKit
 
-class BookDescriptionStackView: UIStackView {
+final class BookDescriptionStackView: UIStackView {
     
     private let bookDedicationStackView = BookDedicationStackView()
     private let bookSummaryStackView = BookSummaryStackView()

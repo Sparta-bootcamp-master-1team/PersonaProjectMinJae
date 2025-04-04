@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class BookSummaryStackView: UIStackView {
+final class BookSummaryStackView: UIStackView {
     
     private var summaryText: String = ""
     private var currentIndex: Int = 0
