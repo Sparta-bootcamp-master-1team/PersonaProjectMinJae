@@ -45,3 +45,8 @@ BookSeriesApp
 ```
 
 ## Features
+- 시리즈 버튼 클릭 시 해당 시리즈의 내용이 노출됩니다.
+
+![Simulator Screen Recording - iPhone 16 Pro - 2025-04-04 at 11 02 03](https://github.com/user-attachments/assets/1bdc3fb6-7b4f-4716-8dbc-9e0628da0723)
+
+
