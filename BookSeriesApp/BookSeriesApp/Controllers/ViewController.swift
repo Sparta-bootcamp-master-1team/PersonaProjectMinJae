@@ -27,8 +27,22 @@ final class ViewController: UIViewController {
         bookHeaderStackView.buttonStackView.delegate = self
         addViews()
         configureLayout()
-        bind(index: viewModel.currentSeriesIndex)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if isDataFecthed() {
+            bind(index: viewModel.currentSeriesIndex)
+        } else {
+            print("error")
+            let alertController = UIAlertController(title: "오류", message: "데이터를 불러오지 못했습니다.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: {_ in
+                exit(0)
+            })
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: false)
+        }
+    }
+    
     private func addViews() {
         view.addSubview(bookHeaderStackView)
         view.addSubview(bookDescriptionScrollView)
@@ -47,6 +61,10 @@ final class ViewController: UIViewController {
             $0.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview()
         }
+    }
+    
+    private func isDataFecthed() -> Bool {
+        return (viewModel.items.count == 0 && viewModel.error != nil) ? false : true
     }
     
     private func bind(index: Int) {

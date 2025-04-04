@@ -1,12 +1,11 @@
 import Foundation
 
+enum DataError: Error {
+    case fileNotFound
+    case parsingFailed
+}
+
 class DataService {
-    
-    enum DataError: Error {
-        case fileNotFound
-        case parsingFailed
-    }
-    
     func loadBooks(completion: @escaping (Result<[BookAttribute], Error>) -> Void) {
         guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {
             completion(.failure(DataError.fileNotFound))
@@ -24,19 +23,3 @@ class DataService {
         }
     }
 }
-/* 사용부
- private let dataService = DataService()
- 
- func loadBooks() {
-     dataService.loadBooks { [weak self] result in
-         guard let self = self else { return }
-         
-         switch result {
-         case .success(let books):
-             
-             
-         case .failure(let error):
-         }
-     }
- }
- */
