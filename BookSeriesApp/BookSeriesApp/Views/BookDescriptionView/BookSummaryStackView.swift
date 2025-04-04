@@ -4,12 +4,16 @@ import SnapKit
 final class BookSummaryStackView: UIStackView {
     
     private var summaryText: String = ""
+    // 현재 선택된 시리즈의 인덱스
     private var currentIndex: Int = 0
+    // 더보기 버튼 클릭상태를 UserDefaults에 저장하고 불러오기
     private var overViewedArray: [Bool] = (UserDefaults.standard.array(forKey: "overViewedArray") as? [Bool]) ?? Array(repeating: false, count: 7) {
         didSet {
             UserDefaults.standard.set(overViewedArray, forKey: "overViewedArray")
         }
     }
+    
+    // overViewed의 상태에 따라 버튼 타이틀 설정
     private var overViewed: Bool = false {
         didSet {
             if overViewed {
@@ -90,6 +94,7 @@ final class BookSummaryStackView: UIStackView {
         overViewed = overViewedArray[currentIndex]
         summaryTextLabel.text = convertSummaryText(summaryText)
         
+        // text 수에 따라 button과 타이틀 설정
         if text.count < 450 {
             overViewButton.isHidden = true
         } else {
@@ -109,6 +114,7 @@ final class BookSummaryStackView: UIStackView {
         self.summaryTextLabel.text = convertSummaryText(summaryText)
     }
     
+    // summaryText 변수에 저장하고, 450자 기준으로 변환
     private func convertSummaryText(_ text: String) -> String {
         var convertedText: String = ""
         
