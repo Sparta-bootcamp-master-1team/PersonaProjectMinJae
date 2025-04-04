@@ -1,6 +1,6 @@
 import UIKit
 
-class BookHeaderStackView: UIStackView {
+final class BookHeaderStackView: UIStackView {
     
     private let headerLabel: UILabel = {
         let label = UILabel()
@@ -11,7 +11,7 @@ class BookHeaderStackView: UIStackView {
         return label
     }()
     
-    var buttonStackView: BookHeaderButtonStackView
+    let buttonStackView: BookHeaderButtonStackView
     
     override init(frame: CGRect) {
         self.buttonStackView = BookHeaderButtonStackView()

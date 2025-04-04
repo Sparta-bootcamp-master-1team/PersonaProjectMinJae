@@ -35,10 +35,10 @@ final class BookInformationStackView: UIStackView {
     }
     
     private func configureLayout() {
-        bookImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(150)
+        bookImageView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(150)
         }
     }
     

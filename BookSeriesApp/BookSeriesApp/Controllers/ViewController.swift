@@ -27,8 +27,21 @@ final class ViewController: UIViewController {
         bookHeaderStackView.buttonStackView.delegate = self
         addViews()
         configureLayout()
-        bind(index: viewModel.currentSeriesIndex)
     }
+    // 데이터가 정상적으로 불러왔는지 확인하여 alert present
+    override func viewDidAppear(_ animated: Bool) {
+        if isDataFecthed() {
+            bind(index: viewModel.currentSeriesIndex)
+        } else {
+            let alertController = UIAlertController(title: "오류", message: "데이터를 불러오지 못했습니다.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: {_ in
+                exit(0)
+            })
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: false)
+        }
+    }
+    
     private func addViews() {
         view.addSubview(bookHeaderStackView)
         view.addSubview(bookDescriptionScrollView)
@@ -49,6 +62,10 @@ final class ViewController: UIViewController {
         }
     }
     
+    private func isDataFecthed() -> Bool {
+        return (viewModel.items.count == 0 && viewModel.error != nil) ? false : true
+    }
+    // 다른 뷰에게 데이터 넘겨주기
     private func bind(index: Int) {
         bookHeaderStackView.bind(model: viewModel.items[viewModel.currentSeriesIndex],
                                  count: viewModel.items.count)
@@ -59,6 +76,7 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: BookHeaderButtonStackViewDelegate {
+    // 시리즈 버튼 클릭시 해당 데이터로 바인딩
     func buttonTapped(at index: Int) {
         viewModel.currentSeriesIndex = index
         DispatchQueue.main.async { [weak self] in

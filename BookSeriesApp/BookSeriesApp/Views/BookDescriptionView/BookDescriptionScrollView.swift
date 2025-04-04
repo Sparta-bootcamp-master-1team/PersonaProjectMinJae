@@ -1,9 +1,9 @@
 import UIKit
 
-class BookDescriptionScrollView: UIScrollView {
+final class BookDescriptionScrollView: UIScrollView {
     
     private let bookDescriptionStackView: BookDescriptionStackView
-    private var bookInformationStackView: BookInformationStackView
+    private let bookInformationStackView: BookInformationStackView
     private let bookChaptersStackView: BookChaptersStackView
     private let contentView = UIView()
     

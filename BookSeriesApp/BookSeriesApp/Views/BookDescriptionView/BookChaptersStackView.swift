@@ -1,6 +1,6 @@
 import UIKit
 
-class BookChaptersStackView: UIStackView {
+final class BookChaptersStackView: UIStackView {
     
     private let chapterLabel: UILabel = {
         let label = UILabel()
