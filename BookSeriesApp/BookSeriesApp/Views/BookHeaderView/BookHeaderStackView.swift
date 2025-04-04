@@ -11,7 +11,7 @@ class BookHeaderStackView: UIStackView {
         return label
     }()
     
-    var buttonStackView: BookHeaderButtonStackView
+    let buttonStackView: BookHeaderButtonStackView
     
     override init(frame: CGRect) {
         self.buttonStackView = BookHeaderButtonStackView()
